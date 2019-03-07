@@ -1,0 +1,21 @@
+{
+    "name": "Fizbee",
+    "short_name": "Fizbee",
+    "icons": [
+      {
+        "src": "/assets/img/brand/icon-512.png",
+        "type": "image/png",
+        "sizes": "512x512"
+      },
+      {
+        "src": "/assets/img/brand/icon-192.png",
+        "type": "image/png",
+        "sizes": "192x192"
+      }
+    ],
+    "start_url": "/index.html",
+    "background_color": "#5e72e4",
+    "display": "fullscreen",
+    "theme_color": "#5e72e4"
+   
+  }
