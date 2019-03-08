@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 const app = express();
 const main = express();
 const firebase = require('firebase');
+const moment = require('moment');
+
 
 const config = {
     apiKey: "AIzaSyBq381RKQM6Gs_nvLjTGUPxqVC3m76wecg",
@@ -22,11 +24,34 @@ main.use('/v1', app);
 main.use(bodyParser.json());
 main.use(bodyParser.urlencoded({ extended: false }));
 
+ 
+// Count all people in the room
+app.get('/:roomID/current', (req, res) => {
+
+    let halfAnHourAgo = moment().subtract(30, 'minutes').toDate().getTime();
+    let active = new Set();
+
+    console.log(halfAnHourAgo + "     "+  Date.now())
+    return firebase.database().ref('/'+ req.params.roomID)
+        .orderByChild("timestamp")
+        .startAt(halfAnHourAgo)
+        .endAt( Date.now())
+        .once('value').then(function(snapshot) {
+         snapshot.forEach(function(data){
+            let mac = data.val().mac;
+            active.add(mac)
+        });
+  
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify({ people: active.size }));
+     
+      });
 
 
-// View all contacts
-app.get('/:roomID/', (req, res) => {
-    res.status(200).send("ok")
+
+
+
+  
 })
 
 

@@ -4,7 +4,17 @@ if (workbox) {
   } else {
     console.log(`Boo! Workbox didn't load 😬`);
   }
-
+  workbox.routing.registerRoute(
+    new RegExp('https://us-central1-fizbee-4c002.cloudfunctions.net/api/'),
+    new workbox.strategies.StaleWhileRevalidate({
+      cacheName: 'api-cache',
+      plugins: [
+        new workbox.cacheableResponse.Plugin({
+          statuses: [0,200]
+        })
+      ]
+    })
+  );
 
 
 // Cache the Google Fonts stylesheets with a stale-while-revalidate strategy.
@@ -2251,7 +2261,7 @@ workbox.routing.registerRoute(
   },
   {
     "url": "index.html",
-    "revision": "b34802c61b69e22aae87622c2453ee52"
+    "revision": "bc6c3b77e9cc2baadbc3539e630c650b"
   },
   {
     "url": "manifest.json",
@@ -2259,7 +2269,7 @@ workbox.routing.registerRoute(
   },
   {
     "url": "src-sw.js",
-    "revision": "39c9b1381bae374aa83bfc3c6b97b950"
+    "revision": "bd18f03e46f42993f6137d93985a1c93"
   },
   {
     "url": "workbox-config.js",

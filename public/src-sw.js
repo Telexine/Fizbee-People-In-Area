@@ -4,7 +4,17 @@ if (workbox) {
   } else {
     console.log(`Boo! Workbox didn't load 😬`);
   }
-
+  workbox.routing.registerRoute(
+    new RegExp('https://us-central1-fizbee-4c002.cloudfunctions.net/api/'),
+    new workbox.strategies.StaleWhileRevalidate({
+      cacheName: 'api-cache',
+      plugins: [
+        new workbox.cacheableResponse.Plugin({
+          statuses: [0,200]
+        })
+      ]
+    })
+  );
 
 
 // Cache the Google Fonts stylesheets with a stale-while-revalidate strategy.
