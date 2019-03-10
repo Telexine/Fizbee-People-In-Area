@@ -178,21 +178,21 @@
             <div class="card-header bg-transparent">
               <div class="row align-items-center">
                 <div class="col">
-                  <h6 class="text-uppercase text-light ls-1 mb-1">Overview</h6>
-                  <h2 class="text-white mb-0">Sales value</h2>
+                  <h6 class="text-uppercase text-light ls-1 mb-1">Overview Traffic update every hour</h6>
+                  <h2 class="text-white mb-0">TNI Library</h2>
                 </div>
                 <div class="col">
                   <ul class="nav nav-pills justify-content-end">
-                    <li class="nav-item mr-2 mr-md-0" data-toggle="chart" data-target="#chart-sales" data-update='{"data":{"datasets":[{"data":[0, 20, 10, 30, 15, 40, 20, 60, 60]}]}}' data-prefix="$" data-suffix="k">
+                    <li id="Today_Chart_tgt" class="nav-item mr-2 mr-md-0" data-toggle="chart" data-target="#traffic-Chart" data-update='{"data":{"datasets":[{"data":[2, 3, 10, 30, 15, 40, 20, 60, 60]}]}}'>
                       <a href="#" class="nav-link py-2 px-3 active" data-toggle="tab">
-                        <span class="d-none d-md-block">Month</span>
-                        <span class="d-md-none">M</span>
+                        <span class="d-none d-md-block">Today</span>
+                        <span class="d-md-none">Today</span>
                       </a>
                     </li>
-                    <li class="nav-item" data-toggle="chart" data-target="#chart-sales" data-update='{"data":{"datasets":[{"data":[0, 20, 5, 25, 10, 30, 15, 40, 40]}]}}' data-prefix="$" data-suffix="k">
+                    <li  id="yesterday_Chart_tgt"  class="nav-item" data-toggle="chart" data-target="#traffic-Chart" data-update='{"data":{"datasets":[{"data":[0, 20, 5, 25, 10, 30, 15, 40, 40]}]}}' >
                       <a href="#" class="nav-link py-2 px-3" data-toggle="tab">
-                        <span class="d-none d-md-block">Week</span>
-                        <span class="d-md-none">W</span>
+                        <span class="d-none d-md-block">Yesterday</span>
+                        <span class="d-md-none">Yesterday</span>
                       </a>
                     </li>
                   </ul>
@@ -203,7 +203,7 @@
               <!-- Chart -->
               <div class="chart">
                 <!-- Chart wrapper -->
-                <canvas id="chart-sales" class="chart-canvas"></canvas>
+                <canvas id="traffic-Chart" class="chart-canvas"></canvas>
               </div>
             </div>
           </div>
@@ -380,6 +380,8 @@
   <!-- Core -->
   <script src="./assets/vendor/jquery/dist/jquery.min.js"></script>
   <script src="./assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="./assets/js/moment.min.js"></script>
+  <script src="./assets/js/moment-timezone.min.js"></script>
   <!-- Optional JS -->
   <script src="./assets/vendor/chart.js/dist/Chart.min.js"></script>
   <script src="./assets/vendor/chart.js/dist/Chart.extension.js"></script>
@@ -394,17 +396,61 @@
 
     
     $(function() {
-      refreshAll();
+      refreshAll();fetchChart()
     });
 
 
   const API_SVR = "https://us-central1-fizbee-4c002.cloudfunctions.net/api/"
-     
+  let Today = moment().format("YYYY_MM_DD")
+  let Yesterday =  moment().subtract(1, 'day').format("YYYY_MM_DD")
+  console.log(Yesterday)
 
     let refreshAll = function(){
         fetchCrowd()
     }
+    let fetchChart = function(){
 
+      let today_tgt= $('#Today_Chart_tgt')
+
+      
+      $.ajax({
+          url: `${API_SVR}v1/reports/hour_reports/room1/${Today}`,
+          type:"GET",
+          crossDomain : false,
+          async: true,
+          contentType: "application/json; charset=utf-8",
+          dataType: "json", 
+          success: function(json) {
+              var map = new Map(json.map(([k, v]) => [k, v]).filter(([k, v]) => k > 5 &k<19));
+              let val =[ ...map.values() ];
+              today_tgt.attr("data-update",`{"data":{"datasets":[{"data":[${val}]}]}}`)
+            .click()
+          },
+          error: function(e) {
+            console.log(e);
+          }
+      });
+      
+      $.ajax({
+          url: `${API_SVR}v1/reports/hour_reports/room1/${Yesterday}`,
+          type:"GET",
+          crossDomain : false,
+          async: true,
+          contentType: "application/json; charset=utf-8",
+          dataType: "json", 
+          success: function(json) {
+              var map = new Map(json.map(([k, v]) => [k, v]).filter(([k, v]) => k > 5 &k<19));
+              let val =[ ...map.values() ];
+            $('#yesterday_Chart_tgt').attr("data-update",`{"data":{"datasets":[{"data":[${val}]}]}}`)
+         
+          },
+          error: function(e) {
+            console.log(e);
+          }
+      });
+      
+      
+    }
 
     let fetchCrowd = function(){
 

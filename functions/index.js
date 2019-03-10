@@ -18,6 +18,19 @@ const config = {
 firebase.initializeApp(config);
 let database = firebase.database();
 // Automatically allow cross-origin requests
+
+var whitelist = ['https://fizbee-4c002.firebaseapp.com/', 'http://localhost']
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
+
+
 main.use(cors({ origin: true }));
  
 main.use('/v1', app);
@@ -36,6 +49,7 @@ main.use(bodyParser.urlencoded({ extended: false }));
    AbmmmqMA     MM        MM  
   A'     VML    MM        MM  
 .AMA.   .AMMA..JMML.    .JMML.
+
 */
  
 // Count all people in the room
@@ -60,6 +74,30 @@ app.get('/:roomID/current', (req, res) => {
       });
 })
 
+
+
+// REPORT 
+
+// past 24 hours
+app.get('/reports/hour_reports/:roomID/:date', (req, res) => {
+
+  let halfAnHourAgo = moment().subtract(30, 'minutes').toDate().getTime();
+  let list = []
+
+  return firebase.database().ref(`/hour_reports/${req.params.roomID}/${req.params.date}`)
+      .once('value').then(function(snapshot) {
+
+ 
+       snapshot.forEach(function(data){
+          let p = data.val().people;
+          list.push([data.key,p])
+      });
+ 
+      res.setHeader('Content-Type', 'application/json');
+      res.end(JSON.stringify( list ));
+   
+    });
+})
 
 /*                                                             
                                                                                  
