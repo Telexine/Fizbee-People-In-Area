@@ -136,9 +136,31 @@ app.get('/cron/:roomID/hour', (req, res) => {
     });
 })
 
-
-
-
+//Daily ** run only every Day **
+app.get('/cron/:roomID/day', (req, res) => {
+  let oneDayAgo = moment().subtract(1, 'day').toDate().getTime();
+  let active = new Set();
+  return firebase.database().ref('/'+ req.params.roomID)
+      .orderByChild("timestamp")
+      .startAt(oneDayAgo)
+      .endAt( Date.now())
+      .once('value').then(function(snapshot) {
+       snapshot.forEach(function(data){
+          let mac = data.val().mac;
+          active.add(mac)
+      });
+      //save report 
+      var ts = moment.tz(moment(),"Asia/Bangkok").format("H");
+ 
+      firebase.database().ref('/day_reports/' + req.params.roomID+"/"+moment.tz(moment(),"Asia/Bangkok").format("YYYY_MM_DD")+'/').set({
+        people: active.size
+      }); 
+      res.setHeader('Content-Type', 'application/json');
+      res.end(JSON.stringify({ people: active.size }));
+   
+    });
+})
+ 
 
 
 
