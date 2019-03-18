@@ -129,11 +129,19 @@ workbox.routing.registerRoute(
   },
   {
     "url": "assets/js/argon.js",
-    "revision": "44c2a660b2d7b2650587fa6212cc399a"
+    "revision": "2a4f3c899ff2ee73441c3a27ebf7d895"
   },
   {
-    "url": "assets/js/argon.min.js",
-    "revision": "f1049a9b37a0054001a20b89df41d786"
+    "url": "assets/js/jquery.animateNumber.min.js",
+    "revision": "c46a5138afcd0ac989037e5bc908bcac"
+  },
+  {
+    "url": "assets/js/moment-timezone.min.js",
+    "revision": "1385453388fd7c678cd647d9589fee13"
+  },
+  {
+    "url": "assets/js/moment.min.js",
+    "revision": "761502841c035afcf6a9bdc5d0a20d11"
   },
   {
     "url": "assets/scss/argon.scss",
@@ -2261,7 +2269,7 @@ workbox.routing.registerRoute(
   },
   {
     "url": "index.html",
-    "revision": "bc6c3b77e9cc2baadbc3539e630c650b"
+    "revision": "2658951bdb3c2fb9612d0af3dcfe573a"
   },
   {
     "url": "manifest.json",
@@ -2270,6 +2278,10 @@ workbox.routing.registerRoute(
   {
     "url": "src-sw.js",
     "revision": "bd18f03e46f42993f6137d93985a1c93"
+  },
+  {
+    "url": "test.html",
+    "revision": "ab427a2281f79e81e6e9da81823d25a5"
   },
   {
     "url": "workbox-config.js",
