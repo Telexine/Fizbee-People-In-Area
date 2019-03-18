@@ -95,12 +95,13 @@ app.get('/reports/hour_reports/:roomID/:date', (req, res) => {
 
 // Weekly
 app.get('/reports/week_reports/:roomID', (req, res) => {
-  let DayOfThisWeek = moment().startOf('isoWeek').toDate().getTime();
-  let EndDayOfThisWeek = moment().endOf('isoWeek').toDate().getTime();
+  let DayOfThisWeek = moment.tz(moment(),"Asia/Bangkok").startOf('Week').toDate().getTime();
+  let EndDayOfThisWeek = moment.tz(moment(),"Asia/Bangkok").endOf('Week').toDate().getTime();
   let list = []
   return firebase.database().ref('/day_reports/'+ req.params.roomID)
-      
- 
+      .orderByChild("Date")
+      .startAt(DayOfThisWeek)
+      .endAt( Date.now())
       .once('value').then(function(snapshot) {
        snapshot.forEach(function(data){
             let date =data.key;
@@ -160,7 +161,7 @@ app.get('/cron/:roomID/day', (req, res) => {
   return firebase.database().ref('/'+ req.params.roomID)
       .orderByChild("timestamp")
       .startAt(oneDayAgo)
-      .endAt( Date.now())
+      .endAt(Date.now())
       .once('value').then(function(snapshot) {
        snapshot.forEach(function(data){
           let mac = data.val().mac;
@@ -170,16 +171,14 @@ app.get('/cron/:roomID/day', (req, res) => {
       var ts = moment.tz(moment(),"Asia/Bangkok").format("H");
  
       firebase.database().ref('/day_reports/' + req.params.roomID+"/"+moment.tz(moment(),"Asia/Bangkok").format("YYYY_MM_DD")+'/').set({
-        people: active.size
+        people: active.size,
+        Date: firebase.database.ServerValue.TIMESTAMP
       }); 
       res.setHeader('Content-Type', 'application/json');
       res.end(JSON.stringify({ people: active.size }));
    
     });
 })
- 
 
-
-
-
+  
 exports.api = functions.https.onRequest(main);
