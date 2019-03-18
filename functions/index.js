@@ -55,12 +55,12 @@ main.use(bodyParser.urlencoded({ extended: false }));
 // Count all people in the room
 app.get('/:roomID/current', (req, res) => {
 
-    let halfAnHourAgo = moment().subtract(30, 'minutes').toDate().getTime();
+    let interval = moment().subtract(10, 'minutes').toDate().getTime();
     let active = new Set();
 
     return firebase.database().ref('/'+ req.params.roomID)
         .orderByChild("timestamp")
-        .startAt(halfAnHourAgo)
+        .startAt(interval)
         .endAt( Date.now())
         .once('value').then(function(snapshot) {
          snapshot.forEach(function(data){
@@ -80,22 +80,15 @@ app.get('/:roomID/current', (req, res) => {
 
 // past 24 hours
 app.get('/reports/hour_reports/:roomID/:date', (req, res) => {
-
-  let halfAnHourAgo = moment().subtract(30, 'minutes').toDate().getTime();
   let list = []
-
   return firebase.database().ref(`/hour_reports/${req.params.roomID}/${req.params.date}`)
       .once('value').then(function(snapshot) {
-
- 
        snapshot.forEach(function(data){
           let p = data.val().people;
           list.push([data.key,p])
       });
- 
       res.setHeader('Content-Type', 'application/json');
       res.end(JSON.stringify( list ));
-   
     });
 })
 
