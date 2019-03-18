@@ -99,6 +99,30 @@ app.get('/reports/hour_reports/:roomID/:date', (req, res) => {
     });
 })
 
+
+// Weekly
+app.get('/reports/week_reports/:roomID', (req, res) => {
+  let DayOfThisWeek = moment().startOf('isoWeek').toDate().getTime();
+  let EndDayOfThisWeek = moment().endOf('isoWeek').toDate().getTime();
+  let list = []
+  return firebase.database().ref('/day_reports/'+ req.params.roomID)
+      
+ 
+      .once('value').then(function(snapshot) {
+       snapshot.forEach(function(data){
+            let date =data.key;
+            list.push([moment(date, "YYYY_MM_DD").weekday(),data.val().people ])
+      });
+
+      console.log(list)
+      //save report 
+      res.setHeader('Content-Type', 'application/json');
+      res.end(JSON.stringify(list ));
+   
+    });
+})
+
+
 /*                                                             
                                                                                  
   .g8"""bgd `7MM"""Mq.   .g8""8q. `7MN.   `7MF'       `7MMF' .g8""8q. `7MM"""Yp, 
