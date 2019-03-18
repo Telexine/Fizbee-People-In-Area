@@ -38,10 +38,8 @@
             <i class="ni ni-bell-55"></i>
           </a>
           <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right" aria-labelledby="navbar-default_dropdown_1">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Something else here</a>
+            <a class="dropdown-item" href="#" onclick="refreshAll()">Refresh</a>
+
           </div>
         </li>
          
@@ -65,51 +63,12 @@
           </div>
         </div>
         <!-- Form -->
-        <form class="mt-4 mb-3 d-md-none">
-          <div class="input-group input-group-rounded input-group-merge">
-            <input type="search" class="form-control form-control-rounded form-control-prepended" placeholder="Search" aria-label="Search">
-            <div class="input-group-prepend">
-              <div class="input-group-text">
-                <span class="fa fa-search"></span>
-              </div>
-            </div>
-          </div>
-        </form>
+ 
         <!-- Navigation -->
         <ul class="navbar-nav">
           <li class="nav-item">
             <a class="nav-link" href="./index.html">
               <i class="ni ni-tv-2 text-primary"></i> Dashboard
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="./examples/icons.html">
-              <i class="ni ni-planet text-blue"></i> Icons
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="./examples/maps.html">
-              <i class="ni ni-pin-3 text-orange"></i> Maps
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="./examples/profile.html">
-              <i class="ni ni-single-02 text-yellow"></i> User profile
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="./examples/tables.html">
-              <i class="ni ni-bullet-list-67 text-red"></i> Tables
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="./examples/login.html">
-              <i class="ni ni-key-25 text-info"></i> Login
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="./examples/register.html">
-              <i class="ni ni-circle-08 text-pink"></i> Register
             </a>
           </li>
         </ul>
@@ -123,18 +82,8 @@
     <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
       <div class="container-fluid">
         <!-- Brand -->
-        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="./index.html">Dashboard</a>
+        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="/"> THAI-NICHI INSTITUTE OF TECHNOLOGY </a>
         <!-- Form -->
-        <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
-          <div class="form-group mb-0">
-            <div class="input-group input-group-alternative">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fas fa-search"></i></span>
-              </div>
-              <input class="form-control" placeholder="Search" type="text">
-            </div>
-          </div>
-        </form>
       </div>
     </nav>
     <!-- Header -->
@@ -143,16 +92,16 @@
         <div class="header-body">
           <!-- Card stats -->
           <div class="row">
-            <div class="col-xl-3 col-lg-6">
+            <div class="col-xl-12 col-lg-12">
               <div class="card card-stats mb-4 mb-xl-0">
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">TNI Library</h5>
+                      <h5 class="card-title text-uppercase text-muted mb-0">CANTEEN C</h5>
                       <span class="h2 font-weight-bold mb-0" id="currentroom1">??</span>
                     </div>
                     <div class="col-auto">
-                      <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+                      <div onclick="fetchCrowd()" class="icon icon-shape bg-danger text-white rounded-circle shadow">
                         <i class="fas fa-chart-bar"></i>
                       </div>
                     </div>
@@ -162,12 +111,17 @@
                      
                   </p>
                 </div>
+                
               </div>
+
+              
             </div>
             
              
+            </div>
           </div>
-        </div>
+
+
       </div>
     </div>
     <!-- Page content -->
@@ -179,18 +133,18 @@
               <div class="row align-items-center">
                 <div class="col">
                   <h6 class="text-uppercase text-light ls-1 mb-1">Overview Traffic update every hour</h6>
-                  <h2 class="text-white mb-0">TNI Library</h2>
+                  <h2 class="text-white mb-0">CANTEEN C</h2>
                 </div>
                 <div class="col">
                   <ul class="nav nav-pills justify-content-end">
                     <li id="Today_Chart_tgt" class="nav-item mr-2 mr-md-0" data-toggle="chart" data-target="#traffic-Chart" data-update='{"data":{"datasets":[{"data":[2, 3, 10, 30, 15, 40, 20, 60, 60]}]}}'>
-                      <a href="#" class="nav-link py-2 px-3 active" data-toggle="tab">
+                      <a href="#"   class="nav-link py-2 px-3 active" data-toggle="tab">
                         <span class="d-none d-md-block">Today</span>
                         <span class="d-md-none">Today</span>
                       </a>
                     </li>
                     <li  id="yesterday_Chart_tgt"  class="nav-item" data-toggle="chart" data-target="#traffic-Chart" data-update='{"data":{"datasets":[{"data":[0, 20, 5, 25, 10, 30, 15, 40, 40]}]}}' >
-                      <a href="#" class="nav-link py-2 px-3" data-toggle="tab">
+                      <a href="#"   class="nav-link py-2 px-3" data-toggle="tab">
                         <span class="d-none d-md-block">Yesterday</span>
                         <span class="d-md-none">Yesterday</span>
                       </a>
@@ -214,7 +168,7 @@
               <div class="row align-items-center">
                 <div class="col">
                   <h6 class="text-uppercase text-muted ls-1 mb-1">OVERVIEW TRAFFIC UPDATE Daily</h6>
-                  <h2 class="mb-0">TNI Library : Weekly</h2>
+                  <h2 class="mb-0">CANTEEN C : Weekly</h2>
                 </div>
               </div>
             </div>
@@ -227,129 +181,10 @@
           </div>
         </div>
       </div>
-      <div class="row mt-5">
-          
-        <div class="col-xl-12 mb-5 mb-xl-0">
-          <div class="card shadow">
-            <div class="card-header border-0">
-              <div class="row align-items-center">
-                <div class="col">
-                  <h3 class="mb-0">Social traffic</h3>
-                </div>
-                <div class="col text-right">
-                  <a href="#!" class="btn btn-sm btn-primary">See all</a>
-                </div>
-              </div>
-            </div>
-            <div class="table-responsive">
-              <!-- Projects table -->
-              <table class="table align-items-center table-flush">
-                <thead class="thead-light">
-                  <tr>
-                    <th scope="col">Referral</th>
-                    <th scope="col">Visitors</th>
-                    <th scope="col"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">
-                      Facebook
-                    </th>
-                    <td>
-                      1,480
-                    </td>
-                    <td>
-                      <div class="d-flex align-items-center">
-                        <span class="mr-2">60%</span>
-                        <div>
-                          <div class="progress">
-                            <div class="progress-bar bg-gradient-danger" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      Facebook
-                    </th>
-                    <td>
-                      5,480
-                    </td>
-                    <td>
-                      <div class="d-flex align-items-center">
-                        <span class="mr-2">70%</span>
-                        <div>
-                          <div class="progress">
-                            <div class="progress-bar bg-gradient-success" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%;"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      Google
-                    </th>
-                    <td>
-                      4,807
-                    </td>
-                    <td>
-                      <div class="d-flex align-items-center">
-                        <span class="mr-2">80%</span>
-                        <div>
-                          <div class="progress">
-                            <div class="progress-bar bg-gradient-primary" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      Instagram
-                    </th>
-                    <td>
-                      3,678
-                    </td>
-                    <td>
-                      <div class="d-flex align-items-center">
-                        <span class="mr-2">75%</span>
-                        <div>
-                          <div class="progress">
-                            <div class="progress-bar bg-gradient-info" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%;"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      twitter
-                    </th>
-                    <td>
-                      2,645
-                    </td>
-                    <td>
-                      <div class="d-flex align-items-center">
-                        <span class="mr-2">30%</span>
-                        <div>
-                          <div class="progress">
-                            <div class="progress-bar bg-gradient-warning" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: 30%;"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div class="row mt-8">
+  
       <!-- Footer -->
-      <footer class="footer">
+      <footer class="footer" style="margin: auto;">
         <div class="row align-items-center justify-content-xl-between">
           <div class="col-xl-6">
             <div class="copyright text-center text-xl-left text-muted">
@@ -359,13 +194,11 @@
           <div class="col-xl-6">
             <ul class="nav nav-footer justify-content-center justify-content-xl-end">
               <li class="nav-item">
-                <a href="https://www.creative-tim.com" class="nav-link" target="_blank">Creative Tim</a>
+                <a href="https://github.com/Telexine/Fizbee-WEB-People-In-Area" class="nav-link" target="_blank">My Github</a>
               </li>
+ 
               <li class="nav-item">
-                <a href="https://www.creative-tim.com/presentation" class="nav-link" target="_blank">About Us</a>
-              </li>
-              <li class="nav-item">
-                <a href="http://blog.creative-tim.com" class="nav-link" target="_blank">Blog</a>
+                <a href="http://www.creative-tim.com" class="nav-link" target="_blank">argon-dashboard</a>
               </li>
               <li class="nav-item">
                 <a href="https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md" class="nav-link" target="_blank">MIT License</a>
@@ -381,6 +214,7 @@
   <script src="./assets/vendor/jquery/dist/jquery.min.js"></script>
   <script src="./assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <script src="./assets/js/moment.min.js"></script>
+  <script src="./assets/js/jquery.animateNumber.min.js"></script>
   <script src="./assets/js/moment-timezone.min.js"></script>
   <!-- Optional JS -->
   <script src="./assets/vendor/chart.js/dist/Chart.min.js"></script>
@@ -396,17 +230,18 @@
 
     
     $(function() {
-      refreshAll();fetchChart()
+      refreshAll()
     });
 
 
   const API_SVR = "https://us-central1-fizbee-4c002.cloudfunctions.net/api/"
   let Today = moment().format("YYYY_MM_DD")
   let Yesterday =  moment().subtract(1, 'day').format("YYYY_MM_DD")
-  console.log(Yesterday)
+ 
 
     let refreshAll = function(){
         fetchCrowd()
+        fetchChart()
     }
     let fetchChart = function(){
 
@@ -441,6 +276,8 @@
           success: function(json) {
               var map = new Map(json.map(([k, v]) => [k, v]).filter(([k, v]) => k > 5 &k<19));
               let val =[ ...map.values() ];
+
+              console.log(val.reduce( ( sum,  x   ) => sum + x , 0))
             $('#yesterday_Chart_tgt').attr("data-update",`{"data":{"datasets":[{"data":[${val}]}]}}`)
          
           },
@@ -465,7 +302,11 @@
           contentType: "application/json; charset=utf-8",
           dataType: "json", 
           success: function(json) {
-            document.getElementById("currentroom1").innerHTML = json.people;
+            $('#currentroom1').css('font-size', '.8em')
+             $('#currentroom1').animateNumber({ 
+               number: json.people,
+               'font-size': '2em',
+              easing: 'easeInQuad'});
           },
           error: function(e) {
             console.log(e);
@@ -491,11 +332,11 @@
           contentType: "application/json; charset=utf-8",
           dataType: "json", 
           success: function(json) {
-              //    document.getElementById("currentroom1").innerHTML = json.people;
-              console.log(json)
+ 
+      
               var map = new Map(json.map(([k, v]) => [k,v]));
               let val =[ ...map.values() ];
-              console.log(val)
+  
             // Create chart
             var weeklyChart = new Chart($chart, {
               type: 'bar',
