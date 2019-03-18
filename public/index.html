@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="Fizbee how many people in the Area">
   <meta name="author" content="Tachid Boonpipat">
-  <title>Fizbee v0.1b</title>
+  <title>Fizbee v0.5b</title>
   <link rel="manifest" href="./manifest.json">
   <!-- Favicon -->
   <link href="./assets/img/brand/favicon.png" rel="icon" type="image/png">
@@ -138,7 +138,7 @@
                 <div class="col">
                   <ul class="nav nav-pills justify-content-end">
                     <li id="Today_Chart_tgt" class="nav-item mr-2 mr-md-0" data-toggle="chart" data-target="#traffic-Chart" data-update='{"data":{"datasets":[{"data":[2, 3, 10, 30, 15, 40, 20, 60, 60]}]}}'>
-                      <a href="#"   class="nav-link py-2 px-3 active" data-toggle="tab">
+                      <a href="#"     class="nav-link py-2 px-3 active" data-toggle="tab">
                         <span class="d-none d-md-block">Today</span>
                         <span class="d-md-none">Today</span>
                       </a>
@@ -186,13 +186,13 @@
       <!-- Footer -->
       <footer class="footer" style="margin: auto;">
         <div class="row align-items-center justify-content-xl-between">
-          <div class="col-xl-6">
-            <div class="copyright text-center text-xl-left text-muted">
-              &copy; 2018  
+          <div class="col-xl-12">
+            <div class="copyright text-center   text-muted">
+              &copy; 2019
             </div>
           </div>
-          <div class="col-xl-6">
-            <ul class="nav nav-footer justify-content-center justify-content-xl-end">
+          <div class="col-xl-12">
+            <ul class="nav nav-footer justify-content-center  ">
               <li class="nav-item">
                 <a href="https://github.com/Telexine/Fizbee-WEB-People-In-Area" class="nav-link" target="_blank">My Github</a>
               </li>
@@ -242,12 +242,75 @@
     let refreshAll = function(){
         fetchCrowd()
         fetchChart()
+        initWeeklyChart(weekly);
     }
     let fetchChart = function(){
-
+  
       let today_tgt= $('#Today_Chart_tgt')
 
       
+
+
+
+	// Variables
+
+	var $chart = $('#traffic-Chart');
+      try{
+        salesChart.destroy();
+      }catch(e){}
+
+	// Methods
+  
+
+		var salesChart = new Chart($chart, {
+			type: 'line',
+			options: {
+				scales: {
+					yAxes: [{
+						gridLines: {
+							color: Charts.colors.gray[900],
+							zeroLineColor: Charts.colors.gray[900]
+						},
+						ticks: {
+							callback: function(value) {
+								if (!(value % 5)) {
+									return   value ;
+								}
+							}
+						}
+					}]
+				},
+				tooltips: {
+					callbacks: {
+						label: function(item, data) {
+							var label = data.datasets[item.datasetIndex].label || '';
+							var yLabel = item.yLabel;
+							var content = '';
+
+							if (data.datasets.length > 1) {
+								content += '<span class="popover-body-label mr-auto">' + label + '</span>';
+							}
+
+							content += '<span class="popover-body-value">' + yLabel + ' Persons</span>';
+							return content;
+						}
+					}
+				}
+			},
+			data: {
+				labels: ['6 AM', '7 AM','8 AM','9 AM', '10 AM', '12 AM','1 PM','2 PM','3 PM','4 PM','5 PM','6 PM'],
+				datasets: [{
+					label: 'People',
+					data: []
+				}]
+			}
+		});
+
+    // Save to jQuery object
+    
+    $chart.data('chart', salesChart);
+   
+	   
       $.ajax({
           url: `${API_SVR}v1/reports/hour_reports/room1/${Today}`,
           type:"GET",
@@ -257,7 +320,13 @@
           dataType: "json", 
           success: function(json) {
               var map = new Map(json.map(([k, v]) => [k, v]).filter(([k, v]) => k > 5 &k<19));
-              let val =[ ...map.values() ];
+              let filer = Array(12-map.size ).fill(0) // [{}, {}, {}];
+              console.log(filer)
+              let val =[ ...map.values() ].concat(filer)
+
+                
+              
+              
               today_tgt.attr("data-update",`{"data":{"datasets":[{"data":[${val}]}]}}`)
             .click()
           },
@@ -284,6 +353,7 @@
           error: function(e) {
             console.log(e);
           }
+          
       });
       
           // Init chart
@@ -313,6 +383,31 @@
           }
       });
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 	//
