@@ -1,4 +1,7 @@
-Fizbee People In Area
+![img](https://github.com/Telexine/Fizbee-WEB-People-In-Area/blob/master/Fizbee-poster.jpg?raw=true)
+
+
+Fizbee - People In Area
 ================
 
 Lightweight Responsive PWA Offline capability  WebApp for Monitor Crowd in the area with historical data
