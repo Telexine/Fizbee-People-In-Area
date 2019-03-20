@@ -996,7 +996,7 @@ var SalesChart = (function() {
 
 	// Variables
 
-	var $chart = $('#traffic-Chart');
+	var $chart = $('d#traffic-Chart');
 
 
 	// Methods

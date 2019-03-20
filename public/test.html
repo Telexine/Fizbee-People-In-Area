@@ -1,0 +1,54 @@
+<div id="root">
+ 
+
+    <div class="container">
+        <!-- Search controls -->
+        <h1>Search Github Users</h1>
+        <div class="form-group">
+            <label for="search-box">
+                Username:
+            </label>
+            <input
+                id="search-box"
+                type="text"
+                class="form-control"
+            />
+        </div>
+        <button
+            id="search-button"
+            class="btn btn-primary"
+        >
+            Search
+        </button>
+    </div>
+    
+    
+    
+    
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript"  src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.4.0/Rx.js"></script>
+    
+    <script>
+        
+        let userClicksSearchButton = Rx.Observable.fromEvent(
+        $("#search-button"),
+        'click'
+            )
+            .map((event) => {
+                return $("#search-box").val();
+            });
+
+        userClicksSearchButton
+            .flatMap((searchTerm) => {
+                return Rx.Observable.fromPromise(
+                    $.get('https://api.github.com/users/' + searchTerm)
+                );
+            })
+            .subscribe((response) => {
+                console.log(response.login)
+ 
+            });
+ 
+    
+    </script>
