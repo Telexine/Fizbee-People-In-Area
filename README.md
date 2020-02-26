@@ -19,7 +19,7 @@ Architecture
 - Google Workbox For Cache and Offline
 - Manifest for PWA
 - Argon For UI
-- MomentJS For timestamp and Timzone
+- MomentJS For timestamp and Timezone
 - Chart.JS
 
 
